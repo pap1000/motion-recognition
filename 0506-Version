@@ -1,0 +1,58 @@
+import mediapipe as mp
+import PoseEstimationModule as pea
+import cv2
+
+dict_PoseAngle = {}
+dict_PoseLength = {}
+cap = cv2.VideoCapture(0)
+count = 0
+state_bigclap = 0
+state_skip = 0
+
+with mp.solutions.holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
+    while cap.isOpened():
+        _, frame = cap.read()
+        white_img = cv2.imread('640x480-white-solid-color-background.jpg')
+
+        image, white_img = pea.pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength,  white_img)
+
+        cv2.imshow('Cam Bg Pose Estimation', image)
+        cv2.imshow('White Bg Pose Estimation', white_img)
+        
+        #푸시업 인식    
+        if 60 <= dict_PoseAngle['RightElbow'] <= 130 and 60 <= dict_PoseAngle['LeftElbow'] <= 130:
+                if 0.7 <= dict_PoseLength['11, 12'] / dict_PoseLength['11, 15'] <= 1.05 and\
+                        0.7 <= dict_PoseLength['11, 12'] / dict_PoseLength['12, 16'] <= 1.05:
+                    print('PushUp')
+
+        #런지 인식
+        if (dict_PoseAngle['LeftKnee'] <= 95 and dict_PoseAngle['RightKnee'] >= 105) or\
+                (dict_PoseAngle['RightKnee'] <= 95 and dict_PoseAngle['LeftKnee'] >= 105):
+            if dict_PoseAngle['LA-LK-RA'] >= 145 or dict_PoseAngle['RA-RK-LA'] >= 145:
+                print('lunge')
+
+        #KneeLift 인식
+        if ((dict_PoseAngle['LeftKnee'] <= 105 and dict_PoseAngle['RightKnee'] >= 160)
+            or (dict_PoseAngle['RightKnee'] <= 105 and dict_PoseAngle['LeftKnee'] >= 160))\
+                and(dict_PoseAngle['LeftHip'] >= 160 or dict_PoseAngle['RightHip'] >= 160):
+            print('KneeLift')
+
+        #big clap 인식
+        if state_bigclap == 0:
+             if (55 <= dict_PoseAngle['LeftShoulder'] <= 90 and 55 <= dict_PoseAngle['RightShoulder'] <= 90) and\
+                     (dict_PoseLength['16, 15'] / dict_PoseLength['12, 11'] >= 3):
+                 state_bigclap = 1
+
+        if state_bigclap != 0:
+             if (dict_PoseAngle['LeftShoulder'] <= 50 and dict_PoseAngle['RightShoulder'] <= 50) and\
+                     (dict_PoseLength['16, 15'] / dict_PoseLength['12, 11'] <= 1):
+                 state_bigclap = 0
+                 print('big clap')
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+
+
+cap.release()
+cv2.destroyAllWindows()
