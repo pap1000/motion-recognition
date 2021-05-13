@@ -105,6 +105,17 @@ with mp.solutions.holistic.Holistic(min_detection_confidence=0.5, min_tracking_c
                         (dict_PoseAngle['LeftElbow'] >= 150 and dict_PoseAngle['RightElbow'] >= 150) and\
                         (dict_PoseAngle['LeftKnee'] >= 150 and dict_PoseAngle['RightKnee'] >= 150):
                     print('Full-Body Motion 3')
+                    
+        #Full-Body Motion 4-R
+        if dict_PoseLength['26, 15'] > dict_PoseLength['25, 15'] and\
+                (70 <= dict_PoseAngle['LeftShoulder'] <= 110 and 30 <= dict_PoseAngle['LK-LH-RK'] <= 110):
+            if dict_PoseAngle['LeftElbow'] >= 155 and dict_PoseAngle['RightElbow'] >= 155:
+                    print('FBM 4-R')
+        #Full-Body Motion 4-L
+        if dict_PoseLength['25, 16'] > dict_PoseLength['26, 16'] and\
+                (70 <= dict_PoseAngle['RightShoulder'] <= 110 and 30 <= dict_PoseAngle['RK-RH-LK'] <= 110):
+            if dict_PoseAngle['LeftElbow'] >= 155 and dict_PoseAngle['RightElbow'] >= 155:
+                    print('FBM 4-L')
 
 
 cap.release()
