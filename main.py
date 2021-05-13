@@ -117,6 +117,14 @@ with mp.solutions.holistic.Holistic(min_detection_confidence=0.5, min_tracking_c
             if dict_PoseAngle['LeftElbow'] >= 155 and dict_PoseAngle['RightElbow'] >= 155:
                     print('FBM 4-L')
 
+        #Full-Body Motion 5-R
+        if 80 <= dict_PoseAngle['LW-RW-LA'] <= 100 and 80 <= dict_PoseAngle['LW-RA-LA'] <= 100:
+            if 50 <= dict_PoseAngle['RK-RH-LK'] <= 120 and dict_PoseLength['28, 27'] / dict_PoseLength['26, 25'] >= 1.3:
+                print('FBM 5-R')
+        #Full-Body Motion 5-L
+        if 80 <= dict_PoseAngle['RW-LW-RA'] <= 100 and 80 <= dict_PoseAngle['RW-LA-RA'] <= 100:
+            if 50 <= dict_PoseAngle['LK-LH-RK'] <= 120 and dict_PoseLength['28, 27'] / dict_PoseLength['26, 25'] >= 1.3:
+                print('FBM 5-L')
 
 cap.release()
 cv2.destroyAllWindows()
