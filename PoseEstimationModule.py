@@ -25,7 +25,7 @@ mp_drawing = mp.solutions.drawing_utils
 mp_drawing.DrawingSpec(color=(0, 0, 255), thickness=2, circle_radius=2)
 
 # opencv의 frame을 넘겨받아야 함.
-def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img):
+def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, dict_PoseLower, white_img):
     image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     results = holistic.process(image)
 
@@ -46,7 +46,6 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
     except:
         pass
-
 
     # LeftElbow 각도 구하기
     try:
@@ -505,7 +504,7 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(RightElbow[0] - RightWrist[0], RightElbow[1] - RightWrist[1]) * 100
-        cv2.putText(image, str(length),
+        cv2.putText(image, str(int(length)),
                     tuple(np.multiply(RightWrist, [640, 480]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
@@ -525,8 +524,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(RightShoulder[0] - RightElbow[0], RightShoulder[1] - RightElbow[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(RightElbow, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(RightElbow, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -545,8 +544,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(RightHip[0] - RightShoulder[0], RightHip[1] - RightShoulder[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(RightShoulder, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(RightShoulder, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -565,8 +564,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(RightKnee[0] - RightHip[0], RightKnee[1] - RightHip[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(RightHip, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(RightHip, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -585,8 +584,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(RightAnkle[0] - RightKnee[0], RightAnkle[1] - RightKnee[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(RightKnee, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(RightKnee, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -606,8 +605,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(LeftElbow[0] - LeftWrist[0], LeftElbow[1] - LeftWrist[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(LeftWrist, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(LeftWrist, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -626,8 +625,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(LeftShoulder[0] - LeftElbow[0], LeftShoulder[1] - LeftElbow[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(LeftElbow, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(LeftElbow, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -646,8 +645,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(LeftHip[0] - LeftShoulder[0], LeftHip[1] - LeftShoulder[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(LeftShoulder, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(LeftShoulder, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -666,8 +665,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(LeftKnee[0] - LeftHip[0], LeftKnee[1] - LeftHip[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(LeftHip, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(LeftHip, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -685,8 +684,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(LeftAnkle[0] - LeftKnee[0], LeftAnkle[1] - LeftKnee[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(LeftKnee, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(LeftKnee, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -704,8 +703,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(LeftShoulder[0] - LeftWrist[0], LeftShoulder[1] - LeftWrist[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(LeftWrist, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(LeftWrist, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -723,8 +722,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(RightShoulder[0] - RightWrist[0], RightShoulder[1] - RightWrist[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(RightWrist, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(RightWrist, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -742,8 +741,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(RightShoulder[0] - LeftShoulder[0], RightShoulder[1] - LeftShoulder[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(LeftShoulder, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(LeftShoulder, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -761,8 +760,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(RightWrist[0] - LeftWrist[0], RightWrist[1] - LeftWrist[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(LeftWrist, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(LeftWrist, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -780,8 +779,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(RightElbow[0] - LeftElbow[0], RightElbow[1] - LeftElbow[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(LeftElbow, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(LeftElbow, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -799,8 +798,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(RightKnee[0] - LeftKnee[0], RightKnee[1] - LeftKnee[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(RightKnee, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(RightKnee, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -818,8 +817,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(RightAnkle[0] - LeftAnkle[0], RightAnkle[1] - LeftAnkle[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(RightAnkle, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(RightAnkle, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -837,8 +836,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(RightKnee[0] - RightWrist[0], RightKnee[1] - RightWrist[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(RightKnee, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(RightKnee, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -856,8 +855,8 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
 
         length = math.hypot(RightKnee[0] - LeftWrist[0], RightKnee[1] - LeftWrist[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(RightKnee, [640, 500]).astype(int)),
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(RightKnee, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -870,13 +869,13 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
     try:
         LeftKnee = [landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].x,
                      landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].y]
-        LeftWrist = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].x,
-                      landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
+        RightWrist = [landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].x,
+                      landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].y]
 
 
-        length = math.hypot(LeftKnee[0] - LeftWrist[0], LeftKnee[1] - LeftWrist[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(LeftKnee, [640, 500]).astype(int)),
+        length = math.hypot(LeftKnee[0] - RightWrist[0], LeftKnee[1] - RightWrist[1]) * 100
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(LeftKnee, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -889,13 +888,13 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
     try:
         LeftKnee = [landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].x,
                      landmarks[mp_pose.PoseLandmark.LEFT_KNEE.value].y]
-        RightWrist = [landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].x,
-                      landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].y]
+        LeftWrist = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].x,
+                      landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
 
 
-        length = math.hypot(LeftKnee[0] - RightWrist[0], LeftKnee[1] - RightWrist[1]) * 100
-        cv2.putText(image, str(length),
-                    tuple(np.multiply(LeftKnee, [640, 500]).astype(int)),
+        length = math.hypot(LeftKnee[0] - LeftWrist[0], LeftKnee[1] - LeftWrist[1]) * 100
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(LeftKnee, [640, 550]).astype(int)),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
                     )
 
@@ -903,6 +902,73 @@ def pose_estimation(frame, holistic, dict_PoseAngle, dict_PoseLength, white_img)
 
     except:
         dict_PoseLength['25, 15'] = -1
+
+    # 23번과 15번 사이 거리 구하기
+    try:
+        LeftHip = [landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].x,
+                     landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
+        LeftWrist = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].x,
+                      landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
+
+
+        length = math.hypot(LeftHip[0] - LeftWrist[0], LeftHip[1] - LeftWrist[1]) * 100
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(LeftHip, [640, 550]).astype(int)),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
+                    )
+
+        dict_PoseLength['23, 15'] = length
+
+    except:
+        dict_PoseLength['23, 15'] = -1
+
+    # 24번과 16번 사이 거리 구하기
+    try:
+        RightHip = [landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].x,
+                     landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y]
+        RightWrist = [landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].x,
+                      landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].y]
+
+
+        length = math.hypot(RightHip[0] - RightWrist[0], RightHip[1] - RightWrist[1]) * 100
+        cv2.putText(image, str(int(length)),
+                    tuple(np.multiply(RightHip, [640, 550]).astype(int)),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA
+                    )
+
+        dict_PoseLength['24, 16'] = length
+
+    except:
+        dict_PoseLength['24, 16'] = -1
+
+    #완전히 허리를 숙였는지 인식(05.15 이범석)
+    try:
+        Shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y,
+                    landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].y]
+        Hip = [landmarks[mp_pose.PoseLandmark.LEFT_HIP.value].y,
+                    landmarks[mp_pose.PoseLandmark.RIGHT_HIP.value].y]
+        if Shoulder[0] <= Hip[0] or Shoulder[0] <= Hip[1] or Shoulder[1] <= Hip[0] or Shoulder[1] <= Hip[1]:
+            dict_PoseLower['Waist'] = 1
+        else:
+            dict_PoseLower['Waist'] = 0
+    except:
+        dict_PoseLower['Waist'] = -1
+
+    #양손이 어깨보다 위인지 인식(05.15 이범석)
+    try:
+        Wrist = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y,
+                    landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].y]
+        Shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y,
+                    landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].y]
+        #양손이 어깨 위
+        if Wrist[0] <= Shoulder[0] and Wrist[0] <= Shoulder[1] and Wrist[1] <= Shoulder[0] and Wrist[1] <= Shoulder[1]:
+            dict_PoseLower['Wrist'] = 0
+        #양손이 어깨 아래
+        else:
+            dict_PoseLower['Wrist'] = 1
+    except:
+        dict_PoseLower['Wrist'] = -1
+
 
 
     return image, white_img
